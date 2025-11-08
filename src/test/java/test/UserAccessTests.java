@@ -13,7 +13,7 @@ public class UserAccessTests extends CommonConditions {
 
     @Test
     void loginSuccess() {
-        User user = UserCreator.withValidCredentials();
+        User user = UserCreator.createUser();
         String title = new LoginPage(driver)
                 .openPage()
                 .login(user)
