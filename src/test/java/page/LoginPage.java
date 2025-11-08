@@ -3,6 +3,7 @@ package page;
 import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,17 +41,20 @@ public class LoginPage extends AbstractPage {
     public LoginPage openPage()
     {
         driver.navigate().to(PAGE_URL);
+        wait.until(ExpectedConditions.visibilityOf(inputLogin));
         logger.info("Login page opened");
         return this;
     }
 
     public MainPage login(User user) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIMEOUT_SECONDS));
 
         wait.until(ExpectedConditions.visibilityOf(inputLogin));
         inputLogin.sendKeys(user.getUsername());
 
+        wait.until(ExpectedConditions.visibilityOf(inputPassword));
         inputPassword.sendKeys(user.getPassword());
+
+        wait.until(ExpectedConditions.elementToBeClickable(buttonSubmit));
         buttonSubmit.click();
         logger.info("Login performed");
 
@@ -58,16 +62,27 @@ public class LoginPage extends AbstractPage {
     }
 
     public void enterUsername(String username) {
-        inputLogin.clear();
+        clearUsername();
         inputLogin.sendKeys(username);
     }
 
     public void enterPassword(String password) {
-        inputPassword.clear();
+        clearPassword();
         inputPassword.sendKeys(password);
     }
 
+    public void clearUsername() {
+        inputLogin.sendKeys(Keys.CONTROL + "a");
+        inputLogin.sendKeys(Keys.BACK_SPACE);
+    }
+
+    public void clearPassword() {
+        inputPassword.sendKeys(Keys.CONTROL + "a");
+        inputPassword.sendKeys(Keys.BACK_SPACE);
+    }
+
     public void clickLogin() {
+        wait.until(ExpectedConditions.elementToBeClickable(buttonSubmit));
         buttonSubmit.click();
     }
 

@@ -1,31 +1,54 @@
 package test;
 
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import page.LoginPage;
-import service.TestDataReader;
+
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+
 
 public class LoginNegativeTests extends CommonConditions {
-    @DataProvider(name = "loginData")
-    public Object[][] loginData() {
-        return new Object[][]{
-                {"", "", "Epic sadface: Username is required"},
-                {TestDataReader.getTestData("valid.username"), "", "Epic sadface: Password is required"},
-                {TestDataReader.getTestData("invalid.username"), TestDataReader.getTestData("invalid.password"), "Epic sadface: Username and password do not match any user in this service"}
-        };
-    }
-
-    @Test(dataProvider = "loginData")
-    public void testInvalidLogins(String username, String password, String expectedMessage) {
+    /**
+     * UC-1
+     * Steps:
+     * 1) Enter username and password
+     * 2) Clear both
+     * 3) Click Login
+     * Expect: "Epic sadface: Username is required"
+     */
+    @Test
+    public void testEmptyCredentials() {
         LoginPage loginPage = new LoginPage(driver).openPage();
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
+        loginPage.enterUsername("something");
+        loginPage.enterPassword("something");
+
+        loginPage.clearUsername();
+        loginPage.clearPassword();
+
         loginPage.clickLogin();
 
-        assertThat(loginPage.getAlertMessage(), is(equalTo(expectedMessage)));
+        assertThat(loginPage.getAlertMessage(), equalTo("Epic sadface: Username is required"));
+    }
+
+    /**
+     * UC-2
+     * Steps:
+     * 1) Enter username and password
+     * 2) Clear password
+     * 3) Click Login
+     * Expect: "Epic sadface: Password is required"
+     */
+    @Test
+    public void testPasswordIsRequired() {
+        LoginPage loginPage = new LoginPage(driver).openPage();
+        loginPage.enterUsername("something");
+        loginPage.enterPassword("something");
+
+        loginPage.enterPassword("");
+
+        loginPage.clickLogin();
+
+        assertThat(loginPage.getAlertMessage(), equalTo("Epic sadface: Password is required"));
     }
 }

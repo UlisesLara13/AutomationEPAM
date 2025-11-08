@@ -1,7 +1,7 @@
 package test;
 
 import model.User;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 import page.LoginPage;
 import service.UserCreator;
 
@@ -10,8 +10,9 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class UserAccessTests extends CommonConditions {
+
     @Test
-    public void loginSuccess() {
+    void loginSuccess() {
         User user = UserCreator.withValidCredentials();
         String title = new LoginPage(driver)
                 .openPage()
