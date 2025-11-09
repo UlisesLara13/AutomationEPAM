@@ -1,4 +1,8 @@
-Launch URL: https://www.saucedemo.com/
+# Selenium WebDriver Test Automation Framework - SauceDemo
+
+This project implements an automated testing framework for the [SauceDemo](https://www.saucedemo.com/) web application using Selenium WebDriver, BDD approach with Cucumber, and parallel execution across multiple browsers.
+
+### Requirements
 
 UC-1 Test Login form with empty credentials:
 Type any credentials into "Username" and "Password" fields.
@@ -32,3 +36,60 @@ Test Runner: JUnit;
 [Optional] Test automation approach: BDD;
 Assertions: Hamcrest;
 [Optional] Loggers: Log4j.
+
+## 🏗️ Project Architecture
+
+### Directory Structure
+```
+FinalTask/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── driver/
+│   │   │   │   └── DriverSingleton.java          # Singleton + ThreadLocal pattern
+│   │   │   ├── model/
+│   │   │   │   └── User.java                     # User model
+│   │   │   ├── page/
+│   │   │   │   ├── AbstractPage.java             # Abstract Factory pattern
+│   │   │   │   ├── LoginPage.java                # Page Object - Login page
+│   │   │   │   └── MainPage.java                 # Page Object - Main dashboard
+│   │   │   └── service/
+│   │   │       └── TestDataReader.java           # Properties reader
+│   │   └── resources/
+│   │       └── url.properties                   # Urls data configuration
+│   └── test/
+│       ├── java/
+│       │   ├── runners/
+│       │   │   └── CucumberTestRunner.java       # JUnit Platform Suite runner
+│       │   ├── steps/
+│       │   │   └── LoginSteps.java               # Cucumber Step Definitions
+│       │   └── test/
+│       │       └── Hooks.java                    # Before/After hooks
+│       └── resources/
+│           ├── features/
+│           │   └── login.feature                 # BDD scenarios (Gherkin)
+│           ├── cucumber.properties               # Cucumber configuration
+│           ├── junit-platform.properties         # Junit configuration
+│           └── log4j2.xml                        # Logger configuration
+├── pom.xml                                        # Maven configuration
+└── README.md                                      # This file
+```
+
+# EJECUCIÓN:
+
+## Chrome (browser por defecto)
+mvn clean test
+
+## Chrome
+mvn clean test -Dbrowser=chrome
+
+## Edge
+mvn clean test -Dbrowser=edge
+
+# 👨‍💻 Author
+
+**Student:** Ulises Lara  
+**Program:** EPAM Java Automation Training  
+**Project:** Final Task - Selenium WebDriver Automation  
+**Date:** November 2025
+
