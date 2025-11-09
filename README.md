@@ -75,7 +75,7 @@ FinalTask/
 └── README.md                                      # This file
 ```
 
-# EJECUCIÓN:
+# HOW TO RUN:
 
 ## Chrome (browser por defecto)
 mvn clean test
