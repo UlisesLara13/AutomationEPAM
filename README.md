@@ -77,7 +77,7 @@ FinalTask/
 
 # HOW TO RUN:
 
-## Chrome (browser por defecto)
+## Chrome (default browser)
 mvn clean test
 
 ## Chrome
