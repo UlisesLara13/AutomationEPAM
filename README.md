@@ -89,7 +89,7 @@ mvn clean test -Dbrowser=edge
 # 👨‍💻 Author
 
 **Student:** Ulises Lara  
-**Program:** EPAM Automation Training  
+**Program:** EPAM Java Automation Training  
 **Project:** Final Task - Selenium WebDriver Automation  
-**Date:** November 202
+**Date:** November 2025
 
