@@ -128,8 +128,25 @@ public class LoginSteps {
      */
     @Then("I should see the error message {string}")
     public void checkErrorMessage(String expectedMessage) {
-        assertThat(loginPage.getAlertMessage(), equalTo(expectedMessage));
-        log("Checked error message: " + expectedMessage);
+        try {
+            String actualMessage = loginPage.getAlertMessage();
+            log("Expected error message: " + expectedMessage);
+            log("Actual error message: " + actualMessage);
+
+            assertThat(actualMessage, equalTo(expectedMessage));
+            log("Error message validation PASSED");
+
+        } catch (AssertionError e) {
+            log("Error message validation FAILED");
+            log("Expected: " + expectedMessage);
+            log("Actual: " + loginPage.getAlertMessage());
+            logger.error("Assertion failed for error message", e);
+            throw e;
+        } catch (Exception e) {
+            log("✗ Unexpected error while checking error message");
+            logger.error("Unexpected error in checkErrorMessage", e);
+            throw new RuntimeException("Failed to verify error message: " + e.getMessage(), e);
+        }
     }
 
     /**
@@ -139,8 +156,27 @@ public class LoginSteps {
      */
     @Then("I should see the header title {string}")
     public void checkHeaderTitle(String expectedTitle) {
-        MainPage mainPage = new MainPage(test.Hooks.getDriver());
-        assertThat(mainPage.getHeaderTitle(), equalTo(expectedTitle));
-        log("Checked header title: " + expectedTitle);
+        try {
+            MainPage mainPage = new MainPage(test.Hooks.getDriver());
+            String actualTitle = mainPage.getHeaderTitle();
+
+            log("Expected header title: " + expectedTitle);
+            log("Actual header title: " + actualTitle);
+
+            assertThat(actualTitle, equalTo(expectedTitle));
+            log("Header title validation PASSED");
+
+        } catch (AssertionError e) {
+            log("Header title validation FAILED");
+            MainPage mainPage = new MainPage(test.Hooks.getDriver());
+            log("Expected: " + expectedTitle);
+            log("Actual: " + mainPage.getHeaderTitle());
+            logger.error("Assertion failed for header title", e);
+            throw e;
+        } catch (Exception e) {
+            log("✗ Unexpected error while checking header title");
+            logger.error("Unexpected error in checkHeaderTitle", e);
+            throw new RuntimeException("Failed to verify header title: " + e.getMessage(), e);
+        }
     }
 }
