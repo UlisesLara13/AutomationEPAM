@@ -75,18 +75,18 @@ FinalTask/
 └── README.md                                      # This file
 ```
 
-## EJECUCIÓN:
+# EJECUCIÓN:
 
-# Chrome (browser por defecto)
+## Chrome (browser por defecto)
 mvn clean test
 
-# Chrome
+## Chrome
 mvn clean test -Dbrowser=chrome
 
-# Edge
+## Edge
 mvn clean test -Dbrowser=edge
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Student:** Ulises Lara  
 **Program:** EPAM Automation Training  
