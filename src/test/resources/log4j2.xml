@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration>
+<Configuration status="WARN">
     <Appenders>
-        <Console name="Console">
-            <PatternLayout>
-                <Pattern>%d %p %c{2} [%t] %l %m%n</Pattern>
-            </PatternLayout>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level [%X{scenario}] %logger{36} - %msg%n"/>
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
         </Console>
-        <File name="File" fileName="target/logs/github-automation.log">
-            <PatternLayout>
-                <Pattern>%d %p %c{2} [%t] %m%n</Pattern>
-            </PatternLayout>
+
+        <File name="FileLogger" fileName="target/logs/test-log.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level [%X{scenario}] %logger{36} - %msg%n"/>
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
         </File>
     </Appenders>
+
     <Loggers>
-        <Root level="trace">
+        <Root level="info">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="File"/>
+            <AppenderRef ref="FileLogger"/>
         </Root>
     </Loggers>
 </Configuration>
